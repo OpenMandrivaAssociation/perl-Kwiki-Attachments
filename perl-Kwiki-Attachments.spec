@@ -1,22 +1,17 @@
-%define module	Kwiki-Attachments
-%define name	perl-%{module}
-%define version 0.18
-%define release %mkrel 7
+%define upstream_name       Kwiki-Attachments
+%define upstream_version    0.20
 
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
-Summary:	Kwiki Page Attachments Plugin
-Source:		ftp://ftp.perl.org/pub/CPAN/modules/by-module/Kwiki/%{module}-%{version}.tar.bz2
-URL:		http://search.cpan.org/dist/%{module}/
-License:	GPL
-Group:		Development/Perl
-%if %{mdkversion} < 1010
-BuildRequires:	perl-devel
-%endif
-BuildRequires:	perl(Kwiki)
-BuildArch:	noarch
-BuildRoot:	%{_tmppath}/%{name}-%{version}
+Name:       perl-%{upstream_name}
+Version:    %perl_convert_version %{upstream_version}
+Release:    %mkrel 1
+Summary:    Kwiki Page Attachments Plugin
+License:    GPL
+Group:      Development/Perl
+Url:        http://search.cpan.org/dist/%{upstream_name}
+Source:     http://www.cpan.org/modules/by-module/Kwiki/%{upstream_name}-%{upstream_version}.tar.gz
+BuildRequires:  perl(Kwiki)
+BuildArch:  noarch
+BuildRoot:  %{_tmppath}/%{name}-%{version}
 
 %description
 Kwiki::Attachments gives a Kwiki wiki the ability to upload, store and manage
@@ -30,7 +25,8 @@ attachment page or widget. For this reason, you cannot upload files beginning
 with "thumb_".
 
 %prep
-%setup -q -n %{module}-%{version}
+%setup -q -n %{upstream_name}-%{upstream_version} 
+rm -f ._Makefile.PL
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor
