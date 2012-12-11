@@ -1,19 +1,19 @@
 %define upstream_name       Kwiki-Attachments
 %define upstream_version    0.21
 
-Name:       perl-%{upstream_name}
-Version:    %perl_convert_version %{upstream_version}
-Release:    %mkrel 1
+Name:		perl-%{upstream_name}
+Version:	%perl_convert_version %{upstream_version}
+Release:	2
 
-Summary:    Kwiki Page Attachments Plugin
-License:    GPL
-Group:      Development/Perl
-Url:        http://search.cpan.org/dist/%{upstream_name}
-Source0:    http://www.cpan.org/modules/by-module/Kwiki/%{upstream_name}-%{upstream_version}.tar.gz
+Summary:	Kwiki Page Attachments Plugin
+License:	GPL
+Group:		Development/Perl
+Url:		http://search.cpan.org/dist/%{upstream_name}
+Source0:	http://www.cpan.org/modules/by-module/Kwiki/%{upstream_name}-%{upstream_version}.tar.gz
 
-BuildRequires:  perl(Kwiki)
-BuildArch:  noarch
-BuildRoot:  %{_tmppath}/%{name}-%{version}
+BuildRequires:	perl-devel
+BuildRequires:	perl(Kwiki)
+BuildArch:	noarch
 
 %description
 Kwiki::Attachments gives a Kwiki wiki the ability to upload, store and manage
@@ -31,22 +31,55 @@ with "thumb_".
 rm -f ._Makefile.PL
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
+perl Makefile.PL INSTALLDIRS=vendor
 %make
 
 %check
 #%{__make} test
 
 %install
-%{__rm} -rf %{buildroot}
 %makeinstall_std
 
-%clean
-%{__rm} -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc Changes README
 %{perl_vendorlib}/Kwiki
 %{_mandir}/*/*
+
+%changelog
+* Fri Jul 17 2009 Jérôme Quelin <jquelin@mandriva.org> 0.210.0-1mdv2010.0
++ Revision: 396752
+- update to 0.21
+
+* Sat Jun 27 2009 Guillaume Rousse <guillomovitch@mandriva.org> 0.200.0-1mdv2010.0
++ Revision: 389941
+- new version
+
+* Thu Jul 31 2008 Thierry Vignaud <tv@mandriva.org> 0.18-7mdv2009.0
++ Revision: 257393
+- rebuild
+
+* Thu Jul 24 2008 Thierry Vignaud <tv@mandriva.org> 0.18-6mdv2009.0
++ Revision: 245414
+- rebuild
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+* Wed Dec 19 2007 Guillaume Rousse <guillomovitch@mandriva.org> 0.18-4mdv2008.1
++ Revision: 133634
+- rebuild
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+
+* Thu Aug 31 2006 Guillaume Rousse <guillomovitch@mandriva.org> 0.18-3mdv2007.0
+- Rebuild
+
+* Mon Apr 24 2006 Guillaume Rousse <guillomovitch@mandriva.org> 0.18-2mdk
+- better sources URL
+- better buildrequires syntax
+
+* Thu Jan 19 2006 Guillaume Rousse <guillomovitch@mandriva.org> 0.18-1mdk
+- first mandriva release
 
